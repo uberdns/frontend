@@ -39,7 +39,9 @@ export default {
         }
     },
     created () {
-        // reset login status
+        // https://vuejs.org/v2/api/#created
+        // "Called synchronously after the instance is created. 
+        // At this stage, the instance has finished processing the options"
         this.$store.dispatch('authentication/logout');
     },
     methods: {

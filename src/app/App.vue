@@ -1,10 +1,15 @@
 <template>
-    <div class="jumbotron">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 offset-sm-3">
-                    <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
-                    <router-view></router-view>
+    <div id="app">
+        <Navbar></Navbar>
+        <div class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 offset-sm-3">
+
+                        <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
+                        <router-view></router-view>
+                        
+                    </div>
                 </div>
             </div>
         </div>
@@ -12,7 +17,11 @@
 </template>
 
 <script>
+import Navbar from './Navbar'
 export default {
+    components: {
+        'Navbar': Navbar
+    },
     name: 'app',
     computed: {
         alert () {

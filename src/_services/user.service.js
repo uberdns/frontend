@@ -1,6 +1,7 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
 
+
 export const userService = {
     login,
     logout,
@@ -11,25 +12,28 @@ function login(username, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, password }),
+        //mode: 'no-cors'
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`http://127.0.0.1:8081/login`, requestOptions)
         .then(handleResponse)
-        .then(user => {
+        .then(user => {         
             // login successful if there's a jwt token in the response
-            if (user.token) {
+            if (user.access) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
+                window.$cookies.set('token', user.access);
+                //localStorage.setItem('user', JSON.stringify(user));
             }
 
             return user;
         });
 }
 
+
 function logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('user');
+    window.$cookies.remove('token');
 }
 
 function getAll() {
