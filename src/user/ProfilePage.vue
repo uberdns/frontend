@@ -1,19 +1,37 @@
 <template>
-    <div id="home">
-        <h1>Hi, {{ profile.name }}!</h1>
-        <p>You're logged in with Vue + Vuex & JWT!!</p>
-        <p>
-            <router-link to="/login">Logout</router-link>
-        </p>
+  <div>
+    <div id="Profile">
+    <h1>Welcome, {{profile.name}}</h1>
+      <div id="records">
+        <b-pagination
+          v-model="currentRecordPage"
+          :total-rows="records.length"
+          :per-page="maxRecordPerPage"
+          aria-controls="record-table"
+        ></b-pagination>
+        <b-table 
+          striped 
+          hover
+          id="record-table"
+          :items="records" 
+          :fields="fields"
+          :per-page="maxRecordPerPage"
+          :current-page="currentRecordPage"
+        ></b-table>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-export default {
-    mounted () {
+  export default {
+      name: 'UserProfile',
+
+      mounted () {
         this.getProfile()
-    },
-    methods: {
+      },
+
+      methods: {
         getProfile() {
           var vm = this
           const requestOptions = {
@@ -39,25 +57,21 @@ export default {
                   return Promise.reject(error);
                 }
               //debugger;
+              vm.records = data.records
               vm.profile = data
               });
             });
         }
-    },
-    computed: {
-        user () {
-            return this.$store.state.authentication.user;
-        },
-        users () {
-            return this.$store.state.users.all;
-        }
-    },
-    data() {
-        return {
-            profile: []
-        }
-        
-    },
+      },
 
-};
+      data() {
+        return { 
+          currentRecordPage: 1,
+          maxRecordPerPage: 5,
+          profile: [],
+          records: [],
+          fields: ['name', 'ip', 'created_on'],
+        }
+      },
+  }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand href="#">NavBar</b-navbar-brand>
+        <b-navbar-brand href="#">UberDNS</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -14,7 +14,7 @@
               <b-dropdown-item href="#">Create</b-dropdown-item>
               <b-dropdown-item href="#">Manage</b-dropdown-item>
             </b-nav-item-dropdown>
-            <b-nav-item href="#" disabled>Disabled</b-nav-item>
+            <!--<b-nav-item href="#" disabled>Disabled</b-nav-item>-->
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -34,9 +34,9 @@
             <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template v-slot:button-content>
-                <em>User</em>
+                <em>{{ profile.name }}</em>
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item href="/profile">Profile</b-dropdown-item>
             <b-dropdown-item href="/logout">Logout</b-dropdown-item>
             </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -50,6 +50,50 @@ export default {
     computed: {
         alert () {
             return this.$store.state.alert
+        }
+    },
+    mounted () {
+        this.getProfile()
+    },
+    methods: {
+        getProfile() {
+          var vm = this
+          const requestOptions = {
+            method: 'GET',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + window.$cookies.get('token')
+            },
+          };
+          
+          fetch('http://127.0.0.1:8081/user/profile', requestOptions)
+            .then(response => { 
+              return response.text().then(text => {
+                const data = text && JSON.parse(text);
+                if (!response.ok) {
+                  if (response.status === 401) {
+                    // auto logout if 401 response returned from api
+                    logout();
+                    location.reload(true);
+                  }
+
+                  const error = (data && data.message) || response.statusText;
+                  return Promise.reject(error);
+                }
+              //debugger;
+              vm.profile = data
+              });
+            });
+        }
+    },
+    data() {
+        return { 
+          currentRecordPage: 1,
+          maxRecordPerPage: 5,
+          username: '',
+          profile: [],
+          records: [],
+          fields: ['name', 'ip', 'created_on'],
         }
     },
     watch:{

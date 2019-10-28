@@ -5,7 +5,8 @@ import { authHeader } from '../_helpers';
 export const userService = {
     login,
     logout,
-    getAll
+    getAll,
+    getProfile
 };
 
 function login(username, password) {
@@ -36,6 +37,27 @@ function logout() {
     window.$cookies.remove('token');
 }
 
+function getProfile() {
+   const requestOptions = {
+        method: 'GET',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + window.$cookies.get('token')
+        },
+    };
+    
+    alert("sup")
+
+    return fetch('http://127.0.0.1:8081/user/profile', requestOptions)
+        .then(handleResponse)
+        .then(profile => {
+            console.log(profile)
+            if (data.id) {
+                return data
+            }
+        });
+}
+
 function getAll() {
     const requestOptions = {
         method: 'GET',
@@ -56,6 +78,7 @@ function handleResponse(response) {
             }
 
             const error = (data && data.message) || response.statusText;
+            alert("rejection")
             return Promise.reject(error);
         }
 

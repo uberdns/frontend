@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import HomePage from '../home/HomePage'
 import LoginPage from '../login/LoginPage'
 import LogoutPage from '../login/LogoutPage'
+import UserProfilePage from '../user/ProfilePage'
 
 Vue.use(Router);
 
@@ -13,6 +14,7 @@ export const router = new Router({
     { path: '/', component: HomePage },
     { path: '/login', component: LoginPage },
     { path: '/logout', component: LogoutPage },
+    { path: '/profile', component: UserProfilePage},
 
     // otherwise redirect to home
     { path: '*', redirect: '/' }
