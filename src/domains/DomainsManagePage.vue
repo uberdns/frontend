@@ -1,6 +1,10 @@
 <template>
     <div id="domains">
         <h1>Manage Domains</h1>
+          <div>
+            <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="record-table"></b-pagination>
+            <b-table id="record-table" striped hover :items="profile.domains" :per-page="perPage" :current-page="currentPage" :fields="fields"></b-table>
+        </div>
     </div>
 </template>
 
@@ -36,6 +40,7 @@ export default {
                 }
               //debugger;
               vm.profile = data
+              vm.rows = data.records.length;
               });
             });
         }
@@ -50,7 +55,11 @@ export default {
     },
     data() {
         return {
-            profile: []
+            profile: [],
+            fields: ['name', 'ip', 'created_on'],
+            perPage: 25,
+            rows: 1,
+            currentPage: 1
         }
         
     },
