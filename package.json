@@ -4,10 +4,6 @@
   "description": "Frontend for UberDNS stack",
   "main": "webpack.config.js",
   "dependencies": {
-    "@babel/core": ">=7.7.2",
-    "babel-loader": ">=8.0.6",
-    "@babel/preset-env": ">=7.7.1",
-    "@babel/preset-stage-0": ">=7.0.0",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": ">=2.1.0",
     "child_process": "^1.0.2",
@@ -18,7 +14,11 @@
     "fs": "0.0.1-security",
     "@hapi/hawk": "",
     "@hapi/hoek": ">=4.2.1",
+    "jquery": "latest",
     "levels": "0.0.7",
+    "level-sublevel": "latest",
+    "levelup": "latest",
+    "leveldown": "latest",
     "logger": "0.0.1",
     "net": "^1.0.2",
     "prom-client": "^11.5.3",
@@ -31,16 +31,24 @@
     "vuex": "^3.1.1"
   },
   "devDependencies": {
+    "@babel/core": "latest",
+    "@babel/plugin-proposal-function-bind": "latest",
+    "@babel/plugin-syntax-dynamic-import": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-stage-0": ">=7.0.0",
+    "babel-loader": "~8.0",
+    "babel-plugin-transform-vue-jsx": "^3.3.0",
+    "babel-preset-env": "latest",
     "css-loader": "^3.2.0",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "latest",
     "rimraf": "^3.0.0",
     "vue": ">=2.6.10",
     "vue-loader": "^15.7.1",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.9.0"
+    "webpack": "latest",
+    "webpack-cli": "latest",
+    "webpack-dev-server": "latest"
   },
   "scripts": {
     "start": "webpack-dev-server --open"
