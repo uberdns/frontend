@@ -7,12 +7,12 @@
         <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
             <b-nav-item-dropdown text="Domains" right>
-              <b-dropdown-item href="#">Create</b-dropdown-item>
-              <b-dropdown-item href="#">Manage</b-dropdown-item>
+              <b-dropdown-item href="/domains/create">Create</b-dropdown-item>
+              <b-dropdown-item href="/domains">Manage</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-nav-item-dropdown text="Records" right>
-              <b-dropdown-item href="#">Create</b-dropdown-item>
-              <b-dropdown-item href="#">Manage</b-dropdown-item>
+              <b-dropdown-item href="/records/create">Create</b-dropdown-item>
+              <b-dropdown-item href="/records">Manage</b-dropdown-item>
             </b-nav-item-dropdown>
             <!--<b-nav-item href="#" disabled>Disabled</b-nav-item>-->
         </b-navbar-nav>
